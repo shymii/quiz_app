@@ -1,0 +1,196 @@
+{
+    "questions": {
+        "one": {
+            "question_number": 1,
+            "question_content": "Które miejsce zajęła szkoła na Śląsku w 2018 roku?",
+            "answer_a": {
+                "answer_content": "5",
+                "is_true": false
+            },
+            "answer_b": {
+                "answer_content": "1",
+                "is_true": true
+            },
+            "answer_c": {
+                "answer_content": "3",
+                "is_true": false
+            }
+        },
+        "two": {
+            "question_number": 2,
+            "question_content": "Ile złotych tarcz posiada szkoła?",
+            "answer_a": {
+                "answer_content": "7",
+                "is_true": false
+            },
+            "answer_b": {
+                "answer_content": "5",
+                "is_true": false
+            },
+            "answer_c": {
+                "answer_content": "6",
+                "is_true": true
+            }
+        },
+        "three": {
+            "question_number": 3,
+            "question_content": "Jaki nowy zawód został wprowadzony w zeszłym roku?",
+            "answer_a": {
+                "answer_content": "Programista",
+                "is_true": true
+            },
+            "answer_b": {
+                "answer_content": "Technik informatyk",
+                "is_true": false
+            },
+            "answer_c": {
+                "answer_content": "Kolejarz",
+                "is_true": false
+            }
+        },
+        "four": {
+            "question_number": 4,
+            "question_content": "Przy jakiej ulicy znajduje się Technikum nr 1?",
+            "answer_a": {
+                "answer_content": "Warszawska",
+                "is_true": false
+            },
+            "answer_b": {
+                "answer_content": "Chorzowska",
+                "is_true": true
+            },
+            "answer_c": {
+                "answer_content": "Akademicka",
+                "is_true": false
+            }
+        },
+        "five": {
+            "question_number": 5,
+            "question_content": "Z jaką firmą współpracuje szkoła na kierunku kolejarskim?",
+            "answer_a": {
+                "answer_content": "Koleje Śląskie",
+                "is_true": true
+            },
+            "answer_b": {
+                "answer_content": "PKP Cargo",
+                "is_true": false
+            },
+            "answer_c": {
+                "answer_content": "Intercity",
+                "is_true": false
+            }
+        },
+        "six": {
+            "question_number": 6,
+            "question_content": "Ile komputerów apple znajduje się w naszej szkole?",
+            "answer_a": {
+                "answer_content": "15",
+                "is_true": false
+            },
+            "answer_b": {
+                "answer_content": "16",
+                "is_true": true
+            },
+            "answer_c": {
+                "answer_content": "17",
+                "is_true": false
+            }
+        },
+        "seven": {
+            "question_number": 7,
+            "question_content": "Ile sal kompuerowych znajduje się w szkole?",
+            "answer_a": {
+                "answer_content": "11",
+                "is_true": true
+            },
+            "answer_b": {
+                "answer_content": "15",
+                "is_true": false
+            },
+            "answer_c": {
+                "answer_content": "13",
+                "is_true": false
+            }
+        },
+        "eight": {
+            "question_number": 8,
+            "question_content": "W którym roku szkoła dostała super nowoczesną drukarkę 3D?",
+            "answer_a": {
+                "answer_content": "2018",
+                "is_true": false
+            },
+            "answer_b": {
+                "answer_content": "2019",
+                "is_true": true
+            },
+            "answer_c": {
+                "answer_content": "2017",
+                "is_true": false
+            }
+        },
+        "nine": {
+            "question_number": 9,
+            "question_content": "W skład tradycyjnego ubioru informatyka wchodzi",
+            "answer_a": {
+                "answer_content": "Sprane jeansy",
+                "is_true": true
+            },
+            "answer_b": {
+                "answer_content": "Okulary",
+                "is_true": true
+            },
+            "answer_c": {
+                "answer_content": "Koszula w krate",
+                "is_true": true
+            }
+        },
+        "ten": {
+            "question_number": 10,
+            "question_content": "Ulubiony napój informatyka",
+            "answer_a": {
+                "answer_content": "Kawa",
+                "is_true": true
+            },
+            "answer_b": {
+                "answer_content": "Energetyk",
+                "is_true": false
+            },
+            "answer_c": {
+                "answer_content": "Herbata",
+                "is_true": false
+            }
+        },
+        "eleven": {
+            "question_number": 11,
+            "question_content": "Z jaką firmą szkoła współpracuje na kierunku programistycznym",
+            "answer_a": {
+                "answer_content": "Microsoft",
+                "is_true": false
+            },
+            "answer_b": {
+                "answer_content": "IBM",
+                "is_true": false
+            },
+            "answer_c": {
+                "answer_content": "TAURON",
+                "is_true": true
+            }
+        },
+        "twelve": {
+            "question_number": 12,
+            "question_content": "Czy chodząc do ZSTI mamy możliwosc jedzenia obiadów w szkole?",
+            "answer_a": {
+                "answer_content": "Tak",
+                "is_true": true
+            },
+            "answer_b": {
+                "answer_content": "Nie",
+                "is_true": false
+            },
+            "answer_c": {
+                "answer_content": "Nie wiem",
+                "is_true": false
+            }
+        }
+    }
+}
