@@ -69,8 +69,6 @@ export default {
 		startQuiz(){
 			this.start = false
 			this.logged = true
-			this.currQuestion = this.questions[this.question]
-			this.questionUpdate(this.currQuestion)
 		},
 		//funkcja ktora zamienia pytanie na ekranie
 		questionUpdate(question){
@@ -152,6 +150,8 @@ export default {
 		categoryChosen(){
 			this.logged = false
 			this.category = true
+			this.currQuestion = this.questions[this.question]
+			this.questionUpdate(this.currQuestion)
 		},
 		//zmiana pytania po kliknieciu odpowiedzi
 		nextQuestion(isTrue){
@@ -239,12 +239,26 @@ export default {
 		}
 		#category-page{
 			width: 100%;
-			* {
+			*{
 				margin: auto;
 				margin-bottom: .5em;
 				width: 60%;
 				padding: .6em;
 				text-align: center;
+				font-family: 'Montserrat', sans-serif;
+			}
+			h3{
+				background-color: #eee;
+			}
+		}
+		#question{
+			*{
+				font-family: 'Montserrat', sans-serif;
+			}
+		}
+		#result{
+			*{
+				font-family: 'Montserrat', sans-serif;
 			}
 		}
 	}
