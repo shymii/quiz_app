@@ -1,5 +1,15 @@
 <template>
 	<div id="app">
+		<div v-if="loginCode" id="code-page">
+			<div class="code-title">
+				<h2 class="code-title-text">Hejka quiz ZSTI</h2>
+			</div>
+			<div class="code-card">
+				<label for="code" class="code-card-label">Podaj kod</label>
+				<input type="text" id="code" class="code-card-input" v-model="code">
+				<button @click="checkCode()" class="code-card-button">START</button>
+			</div>
+		</div>
 		<div v-if="start" id="login-page">
 			<div class="login-title">
 				<h2 class="login-title-text">Hejka quiz ZSTI</h2>
@@ -35,15 +45,19 @@
 
 <script>
 import json from './data/data.json'
+import io from 'socket.io-client'
 
 export default {
 	data(){
 		return{
+			socket: io('http://localhost:4000'),
 			timeout: null,		
 			interval: null,		
 			myJson: json,		
-			login: '',			
-			start: true,		
+			login: '',
+			code: '',
+			loginCode: true,			
+			start: false,		
 			logged: false,		
 			result: false,
 			category: false,		
@@ -64,6 +78,10 @@ export default {
 			} else{
 				alert('Wpisz imię dluzsze niz 3 litery')
 			}
+		},
+		checkCode(){
+			console.log(this.code)
+			this.socket.emit('code', this.code);
 		},
 		//start quizu usuwa pole logowania i zmienia na pytanie pierwsze z arraya wylosowanych pytan
 		startQuiz(){
@@ -186,6 +204,10 @@ export default {
 				i--;
 			}
 		}
+		this.socket.on('code', () => {
+			this.loginCode = false;
+			this.start = true;
+		})
 	}
 }
 </script>
