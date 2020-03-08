@@ -1,0 +1,93 @@
+{
+    "1": {
+        "question_content": "Które miejsce zajęła szkoła na Śląsku w 2018 roku?",
+        "answer_a": {
+            "answer_content": "5",
+            "is_true": false
+        },
+        "answer_b": {
+            "answer_content": "1",
+            "is_true": true
+        },
+        "answer_c": {
+            "answer_content": "3",
+            "is_true": false
+        }
+    },
+    "2": {
+        "question_content": "Ile złotych tarcz posiada szkoła?",
+        "answer_a": {
+            "answer_content": "7",
+            "is_true": false
+        },
+        "answer_b": {
+            "answer_content": "5",
+            "is_true": false
+        },
+        "answer_c": {
+            "answer_content": "6",
+            "is_true": true
+        }
+    },
+    "3": {
+        "question_content": "Jaki nowy zawód został wprowadzony w zeszłym roku?",
+        "answer_a": {
+            "answer_content": "Programista",
+            "is_true": true
+        },
+        "answer_b": {
+            "answer_content": "Technik informatyk",
+            "is_true": false
+        },
+        "answer_c": {
+            "answer_content": "Kolejarz",
+            "is_true": false
+        }
+    },
+    "4": {
+        "question_content": "Przy jakiej ulicy znajduje się Technikum nr 1?",
+        "answer_a": {
+            "answer_content": "Warszawska",
+            "is_true": false
+        },
+        "answer_b": {
+            "answer_content": "Chorzowska",
+            "is_true": true
+        },
+        "answer_c": {
+            "answer_content": "Akademicka",
+            "is_true": false
+        }
+    },
+    "5": {
+        "question_content": "Z jaką firmą współpracuje szkoła na kierunku kolejarskim?",
+        "answer_a": {
+            "answer_content": "Koleje Śląskie",
+            "is_true": true
+        },
+        "answer_b": {
+            "answer_content": "PKP Cargo",
+            "is_true": false
+        },
+        "answer_c": {
+            "answer_content": "Intercity",
+            "is_true": false
+        }
+    },
+    "6": {
+        "question_content": "Ile komputerów apple znajduje się w naszej szkole?",
+        "answer_a": {
+            "answer_content": "15",
+            "is_true": false
+        },
+        "answer_b": {
+            "answer_content": "16",
+            "is_true": true
+        },
+        "answer_c": {
+            "answer_content": "17",
+            "is_true": false
+        }
+    }
+
+}

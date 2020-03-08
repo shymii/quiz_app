@@ -20,40 +20,37 @@
 				<button @click="checkName()" class="login-card-button">START</button>
 			</div>
 		</div>
-		<div id="category-page" v-if="logged">
-			<h1 class="category-title">Kategorie</h1>
-			<h3 class="category-option" @click="categoryChosen()">xyz</h3>
-			<h3 class="category-option" @click="categoryChosen()">xyz</h3>
-			<h3 class="category-option" @click="categoryChosen()">xyz</h3>
+		<div id="waiting-page" v-if="logged">
+			<h1 class="category-title">Waiting for players</h1>
 		</div>
-		<div id="question" v-if="category" :key="question">
-			<h1 :bind="question" class="question-number">Pytanie {{question + 1}}</h1> 
-			<h2 :bind="fullQuestion" class="question-content">{{fullQuestion.question_content}}</h2>
+		<div id="question" v-if="category" :key="currQuestNum">
+			<h1 :bind="currQuestNum" class="question-number">Pytanie {{currQuestNum + 1}}</h1> 
+			<h2 :bind="myJson" class="question-content">{{ myJson[questionNum].question_content }}</h2>
 			<div class="question-answers">
-				<h3 class="question-answer" :bind="fullQuestion" @click="nextQuestion(fullQuestion.answer_a.is_true)">{{fullQuestion.answer_a.answer_content}}</h3>
-				<h3 class="question-answer" :bind="fullQuestion" @click="nextQuestion(fullQuestion.answer_b.is_true)">{{fullQuestion.answer_b.answer_content}}</h3>
-				<h3 class="question-answer" :bind="fullQuestion" @click="nextQuestion(fullQuestion.answer_c.is_true)">{{fullQuestion.answer_c.answer_content}}</h3>
+				<h3 :bind="myJson" class="question-answer" @click="answerChosen(myJson[questionNum].answer_a.is_true)">{{ myJson[questionNum].answer_a.answer_content }}</h3>
+				<h3 :bind="myJson" class="question-answer" @click="answerChosen(myJson[questionNum].answer_b.is_true)">{{ myJson[questionNum].answer_b.answer_content }}</h3>
+				<h3 :bind="myJson" class="question-answer" @click="answerChosen(myJson[questionNum].answer_c.is_true)">{{ myJson[questionNum].answer_c.answer_content }}</h3>
 			</div>
 		</div>
 		<div id="result" v-if="result">
 			<h1 class="result-header">So basically u got</h1>
-			<h2 :bind="trueAnswers" class="result-number">{{trueAnswers}}/5</h2>
-			<h3 :bind="time">W czasie {{this.time}}s</h3>
+			<h2 :bind="allAnswers" class="result-number">{{ allAnswers }}/5</h2>
+			<h3 :bind="time">Łączny czas {{ time/1000 }}s</h3>
 		</div>
 	</div>
 </template>
 
 <script>
-import json from './data/data.json'
+import catA from './data/categorya.json'
+import catB from './data/categoryb.json'
+import catC from './data/categoryc.json'
 import io from 'socket.io-client'
 
 export default {
 	data(){
 		return{
-			socket: io('http://localhost:4000'),
-			timeout: null,		
-			interval: null,		
-			myJson: json,		
+			socket: io('http://localhost:81'),	
+			myJson: null,		
 			login: '',
 			code: '',
 			loginCode: true,			
@@ -61,13 +58,14 @@ export default {
 			logged: false,		
 			result: false,
 			category: false,		
-			questions: [],		
-			question: 0,		
-			currQuestion: '',	
-			fullQuestion: 0,	
-			playerScore: [],	
-			trueAnswers: 0,		
-			time: 0				
+			questions: [],
+			questionNum: 0,
+			currQuestNum: 0,
+			questTimeout: null,
+			timeInterval: null,
+			currAnswer: null,
+			allAnswers: 0,
+			time: 0
 		}
 	},
 	methods: {
@@ -80,134 +78,84 @@ export default {
 			}
 		},
 		checkCode(){
-			console.log(this.code)
 			this.socket.emit('code', this.code);
 		},
 		//start quizu usuwa pole logowania i zmienia na pytanie pierwsze z arraya wylosowanych pytan
 		startQuiz(){
 			this.start = false
 			this.logged = true
+			this.socket.emit('login', this.login)
 		},
-		//funkcja ktora zamienia pytanie na ekranie
-		questionUpdate(question){
-			clearInterval(this.interval)
-			clearTimeout(this.timeout)
-			switch(question){
-			case 1:
-				this.fullQuestion = this.myJson.questions.one
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case 2:
-				this.fullQuestion = this.myJson.questions.two
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case 3:
-				this.fullQuestion = this.myJson.questions.three
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case 4:
-				this.fullQuestion = this.myJson.questions.four
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case 5:
-				this.fullQuestion = this.myJson.questions.five
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case 6:
-				this.fullQuestion = this.myJson.questions.six
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case 7:
-				this.fullQuestion = this.myJson.questions.seven
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case 8:
-				this.fullQuestion = this.myJson.questions.eight
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case 9:
-				this.fullQuestion = this.myJson.questions.nine
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case 10:
-				this.fullQuestion = this.myJson.questions.ten
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case 11:
-				this.fullQuestion = this.myJson.questions.eleven
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case 12:
-				this.fullQuestion = this.myJson.questions.twelve
-				this.startInterval()
-				this.startTimeout()
-				break;
-			case undefined:
-			//tutaj sie dzieje wszystko po odpowiedzi na ostatnie pytanie, czyli przechodzi do result i wysyla na serwer
-				for(let i=0; i<this.playerScore.length; i++){
-					if(this.playerScore[i]===true){
-						this.trueAnswers++
-					}
-				}
-				this.category = false
-				this.result = true
-				this.time = this.time/1000
-			}
-		},
-		categoryChosen(){
-			this.logged = false
-			this.category = true
-			this.currQuestion = this.questions[this.question]
-			this.questionUpdate(this.currQuestion)
-		},
-		//zmiana pytania po kliknieciu odpowiedzi
-		nextQuestion(isTrue){
-			this.playerScore.push(isTrue)
-			this.question++
-			this.currQuestion = this.questions[this.question]
-			this.questionUpdate(this.currQuestion)
-		},
-		//czas na jedno pytanie
 		startTimeout(){
-            this.timeout = setTimeout(() => {
-                this.playerScore.push(false)
-                this.question++
-				this.currQuestion = this.questions[this.question]
-				this.questionUpdate(this.currQuestion)
-            }, 5000)
+			this.questTimeout = setTimeout(() => {
+				clearInterval(this.timeInterval)
+				this.startInterval()
+				if(this.currAnswer == true){
+					this.allAnswers++
+				}
+				this.currAnswer = null;
+				this.currQuestNum++;
+				this.questionNum = this.questions[this.currQuestNum];
+				if(this.currQuestNum != 4){
+					this.startTimeout();
+				} else {
+					this.endTimeout();
+				}
+			}, 10000);
 		},
-		//zliczanie czasu na odpowiedzi
+		endTimeout(){
+			setTimeout(() => {
+				clearInterval(this.timeInterval)
+				if(this.currAnswer == true){
+					this.allAnswers++
+				}
+				this.currAnswer = null;
+				this.category = false;
+				this.result = true;
+			}, 10000);
+		},
+		answerChosen(isTrue){
+			if(this.currAnswer == null){
+				this.currAnswer = isTrue;
+			}
+			clearInterval(this.timeInterval)
+		},
 		startInterval(){
-			this.interval = setInterval(() => {
-					this.time += 5;
+			this.timeInterval = setInterval(() => {
+				this.time += 5;
 			}, 5)
 		}
 	},
 	created(){
 		//po utworzeniu komponentu losuje 5 pytan z bazy i wrzuca je do arraya i laczy sie z serwerem
-		for(let i = 0; i<5; i++){
-			let random = Math.floor(Math.random() * 12) + 1;
-			if(!this.questions.includes(random)){
-				this.questions.push(random);
-			} else{
-				i--;
-			}
-		}
 		this.socket.on('code', () => {
 			this.loginCode = false;
 			this.start = true;
 		})
+
+		this.socket.on('login', () => {
+			this.category = true;
+			this.logged = false;
+			this.questionNum = this.questions[this.currQuestNum];
+			this.startTimeout();
+			this.startInterval();
+		})
+
+		this.socket.on('randomNums', data => {
+			this.questions = data;
+		})
+
+		this.socket.on('category', data => {
+			if(data == 'categoryA'){
+				this.myJson = catA
+			} else if(data == 'categoryB'){
+				this.myJson = catB
+			} else if(data == 'categoryC'){
+				this.myJson = catC
+			}
+		})
+
+
 	}
 }
 </script>
