@@ -16,8 +16,8 @@ let socket = require('socket.io');
 
 let app = express();
 
-let server = app.listen(81, () => {
-    console.log('listening on 81');
+let server = app.listen(4000, () => {
+    console.log('listening on 4000');
 });
 
 app.use(express.static('public'));

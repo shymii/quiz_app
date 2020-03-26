@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: #FCC0C0;
+            color: #707070;
+        }
+        button{
+            display: block;
+            border: 1px solid rgba(221, 221, 221, 1);
+            background-color: rgba(255, 255, 255, .5);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            color: #707070;
+            border-radius: 5px;
+            margin: 1em auto;
+            font-weight: 600;
+        }
+        .code{
+            font-size: 30px;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            width: 100%;
+            margin-top: 50px;
+        }
+        .generate-code{
+            width: 200px;
+            height: 45px;
+        }
+        .cat-a{
+            width: 130px;
+            height: 50px;
+            margin-top: 4em;
+        }
+        .cat-b{
+            width: 130px;
+            height: 50px;
+        }
+        .cat-c{
+            width: 130px;
+            height: 50px;
+        }
+        .start-quiz{
+            margin-top: 4em;
+            height: 45px;
+            width: 200px;
+        }
+        .disconnect{
+            height: 45px;
+            width: 200px;
+            margin-top: 5em;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="code">code: xxxxxx</h2>
+
+    <button class="generate-code">gencode</button>
+
+    <button class="cat-a"><span>cat a</span></button>
+    <button class="cat-b"><span>cat b</span></button>
+    <button class="cat-c"><span>cat c</span></button>
+    <button class="start-quiz">start quiz</button>
+
+    <button class="disconnect">disconnect all</button>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <script>
+        let socket = io('http://localhost:4000');
+        const codeHead = document.querySelector('.code');
+        const btnDisc = document.querySelector('.disconnect');
+        const btnCode = document.querySelector('.generate-code');
+        const btnCatA = document.querySelector('.cat-a');
+        const btnCatB = document.querySelector('.cat-b');
+        const btnCatC = document.querySelector('.cat-c');
+        const btnStart = document.querySelector('.start-quiz');
+
+        btnCode.addEventListener('click', () => {
+            code = Math.floor(Math.random() * (999999-100000) + 100000);
+            codeHead.innerHTML = 'code: '+code;
+            socket.emit('gencode', code);
+        });
+
+        btnDisc.addEventListener('click', () => {
+            socket.emit('disconnall');
+        })
+
+        btnCatA.addEventListener('click', () => {
+            socket.emit('cata');
+        })
+        btnCatB.addEventListener('click', () => {
+            socket.emit('catb');
+        })
+        btnCatC.addEventListener('click', () => {
+            socket.emit('catc');
+        })
+
+        btnStart.addEventListener('click', () => {
+            socket.emit('start');
+        })
+
+    </script>
+</body>
+</html>
